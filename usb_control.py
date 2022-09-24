@@ -12,6 +12,7 @@ USB_PORT = "/dev/ttyACM0"  # Arduino Uno WiFi Rev2
 
 # Imports
 import serial
+from time import sleep
 
 
 # Functions
@@ -30,7 +31,7 @@ def print_commands():
 
 # Connect to USB serial port at 9600 baud
 try:
-   usb = serial.Serial(USB_PORT, 9600, timeout=2)
+   usb = serial.Serial(USB_PORT, 115200, timeout=2)
 except:
    print("ERROR - Could not open USB serial port.  Please check your port name and permissions.")
    print("Exiting program.")
@@ -50,26 +51,47 @@ while True:
    if command == "f":  # read Arduino A0 pin value
       usb.write(b'forward')  # send command to Arduino
       print(f"Going forward with {vel}.")
+
       line = usb.readline()  # read input from Arduino
       line = line.decode()  # convert type from bytes to string
-      print(f"got {line}")
+      print(f"got: {line}")
 
    elif command == "b":  # turn on Arduino LED
+
+
       usb.write(b'back')  # send command to Arduino
       print(f"Going back with {vel}.")
 
+      line = usb.readline()  # read input from Arduino
+      line = line.decode()  # convert type from bytes to string
+      print(f"got: {line}")
+
    elif command == "l":  # turn off Arduino LED
+
       usb.write(b'left')  # send command to Arduino
       print(f"Turning left with {vel}.")
 
+      line = usb.readline()  # read input from Arduino
+      line = line.decode()  # convert type from bytes to string
+      print(f"got: {line}")
+
    elif command == "r":  # turn off Arduino LED
+      usb.flush()
       usb.write(b'right')  # send command to Arduino
       print(f"Turning right with {vel}.")
+
+      line = usb.readline()  # read input from Arduino
+      line = line.decode()  # convert type from bytes to string
+      print(f"got: {line}")
 
    elif command == "s":  # turn off Arduino LED
       usb.write(b'stop')  # send command to Arduino
       print(f"Stopping.")
 
+      line = usb.readline()  # read input from Arduino
+      line = line.decode()  # convert type from bytes to string
+      print(f"got: {line}")
+   
    elif command == "x":  # exit program
       print("Exiting program.")
       exit()

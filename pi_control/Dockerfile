@@ -1,4 +1,4 @@
-ARG FROM_IMAGE=ros:humble
+ARG FROM_IMAGE=ros:eloquent
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 
 # multi-stage for caching

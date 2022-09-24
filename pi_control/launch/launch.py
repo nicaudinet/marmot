@@ -17,9 +17,9 @@ def generate_launch_description():
 
     pi_control_node = launch_ros.actions.Node(
         package='pi_control',
-        executable='pi_control',
+        node_executable='pi_control',
         output='screen',
-        name='pi_control',
+        node_name='pi_control',
         # respawn=True,
         # respawn_delay=1.0,
         # parameters=[config]

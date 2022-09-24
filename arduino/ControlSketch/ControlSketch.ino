@@ -12,54 +12,54 @@ int leftDistance = 0;
 int middleDistance = 0;
 int carSpeed = 0;
 
-void forward() {
-  analogWrite(ENA, carSpeed);
-  analogWrite(ENB, carSpeed);
+void forward(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
   digitalWrite(IN1, HIGH);
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, HIGH);
-  Serial.println("Forward");
+  // Serial.println("Forward");
 }
 
-void back() {
-  analogWrite(ENA, carSpeed);
-  analogWrite(ENB, carSpeed);
+void back(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
   digitalWrite(IN1, LOW);
   digitalWrite(IN2, HIGH);
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
-  Serial.println("Back");
+  // Serial.println("Back");
 }
 
-void left() {
-  analogWrite(ENA, carSpeed);
-  analogWrite(ENB, carSpeed);
+void left(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
   digitalWrite(IN1, LOW);
   digitalWrite(IN2, HIGH);
   digitalWrite(IN3, LOW);
   digitalWrite(IN4, HIGH);
-  Serial.println("Left");
+  // Serial.println("Left");
 }
 
-void right() {
-  analogWrite(ENA, carSpeed);
-  analogWrite(ENB, carSpeed);
+void right(int speed) {
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
   digitalWrite(IN1, HIGH);
   digitalWrite(IN2, LOW);
   digitalWrite(IN3, HIGH);
   digitalWrite(IN4, LOW);
-  Serial.println("Right");
+  // Serial.println("Right");
 }
 
 void stop() {
   digitalWrite(ENA, LOW);
   digitalWrite(ENB, LOW);
-  Serial.println("Stop!");
+  // Serial.println("Stop!");
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(Echo, INPUT);
   pinMode(Trig, OUTPUT);
   pinMode(IN1, OUTPUT);
@@ -89,23 +89,24 @@ void loop() {
 
     // Movement commands
     else if (command.substring(0,5) == "speed") {
-      int speed = command.substring(5, command.length()).toInt();
-      int carSpeed = speed;
+      carSpeed = command.substring(5, command.length()).toInt();
     }
     else if (command == "forward") {
       Serial.println("Forward");
-      forward();
+      digitalWrite(LED_BUILTIN, HIGH);
+      forward(carSpeed);
     } else if (command == "back") {
       Serial.println("Back");
-      back();
+      back(carSpeed);
     } else if (command == "left") {
       Serial.println("Left");
-      left();
+      left(carSpeed);
     } else if (command == "right") {
       Serial.println("Right");
-      right();
+      right(carSpeed);
     } else if (command == "stop") {
       Serial.println("Stop");
+      digitalWrite(LED_BUILTIN, LOW);
       stop();
     }
   }
