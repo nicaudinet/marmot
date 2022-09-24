@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  pi-control:
+    network_mode: host
+    build: .
+    # volumes:
+      # - ./config/params.yaml:/opt/ros/overlay_ws/install/pi_control/share/pi_control/config/params.yaml
+    environment:
+      - "ROS_DOMAIN_ID=0"
+    # restart: always
+    command: ros2 launch pi_control launch.py
